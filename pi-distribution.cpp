@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include "pi-io.h"
 #include "pi-distribution.h"
 
@@ -21,7 +22,7 @@ void pi_distribution(string in_file)
 
 }
 
-void pi_count_digits(unsigned long long dist[255], string buffer)
+void pi_count_digits(unsigned long long dist[255], const string &buffer)
 {
   const char *buf = buffer.c_str();
   int ch;

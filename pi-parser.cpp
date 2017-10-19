@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "pi-distribution.h"
+#include "pi-repitition.h"
 
 using namespace std;
 
@@ -9,6 +10,11 @@ struct pi_parser
   int program;
   string data_path;
 };
+
+void usage()
+{
+  cout << "Usage: ./pi-parser /path/to/pi.txt" << endl;
+}
 
 int menu_select()
 {
@@ -34,11 +40,17 @@ int menu_select()
 
 }
 
-int main()
+int main(int argc, char *argv[])
 {
+  if ( argc < 2 )
+  {
+    usage();
+    return 1;
+  }
+
   pi_parser app;
   app.program = menu_select();
-  app.data_path = "../data/pi-5-bil.txt";
+  app.data_path = argv[1];
 
   switch ( app.program )
   {
@@ -49,7 +61,7 @@ int main()
 
     break;
     case 3:
-
+      pi_repitition(app.data_path);
     break;
   }
 
