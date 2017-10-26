@@ -1,2 +1,2 @@
 #!/bin/bash
-g++ -std=c++11 -o pi-parser *.cpp
+g++ -O3 -std=c++11 -o pi-parser *.cpp

@@ -45,3 +45,78 @@ void pi_repitition(string in_file)
   cout << "Most frequent reoccurence found: " << highest_recur << " repititions of \"" << highest_digit << "\" at index " << highest_idx << endl;
 
 }
+
+void pi_repitition_nk(string in_file)
+{
+  int n;
+  string k;
+
+  n = get_input_int("Please enter a number for n");
+
+  cout << "Please enter a number for k: ";
+  cin >> k;
+
+  pi_io session = pi_io_session(in_file);
+  unsigned long long x = 0, found_idx;
+  unsigned int current_count = 0;
+  bool found = false;
+
+  //Read first n bytes.
+  string buffer;
+  do {
+    buffer = pi_io_read(session);
+
+    for ( int i=0; i<buffer.length(); i++ )
+    {
+      if ( buffer[i] == k[0] )
+      {
+        current_count++;
+
+        if ( current_count >= n )
+        {
+          found = true;
+          found_idx = (x - n);
+          break;
+        }
+      }
+      else
+      {
+        current_count = 0;
+      }
+
+      x++;
+
+    }
+
+    if ( found == true )
+      break;
+
+    cout << session.progress << "%" << endl;
+
+  } while( buffer != "" );
+
+  cout << "Done." << endl;
+  if ( found == true )
+    cout << "The first " << n << " repitions of " << k << " is at index " << found_idx << endl;
+  else
+    cout << "No " << n << " repititions of " << k << " was found" << endl;
+
+}
+
+int get_input_int(string message)
+{
+  string result;
+  int selection;
+
+  cout << message << ": ";
+  cin >> result;
+  try {
+    selection = stoi(result);
+  } catch (invalid_argument e) {
+    cout << "Please enter a number" << endl;
+    return get_input_int(message);
+  }
+
+  return selection;
+
+}
