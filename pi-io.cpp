@@ -5,7 +5,7 @@
 
 #include "pi-io.h"
 
-#define IO_BUFFER_SIZE 273631;
+#define IO_BUFFER_SIZE 2073631;
 
 using namespace std;
 
