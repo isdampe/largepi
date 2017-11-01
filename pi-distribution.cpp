@@ -7,7 +7,7 @@ using namespace std;
 
 void pi_distribution(string in_file)
 {
-  pi_io session = pi_io_session(in_file);
+  pi_io session = pi_io_session(in_file, 0);
   unsigned long long dist[255] = {0};
 
   //Read first n bytes.

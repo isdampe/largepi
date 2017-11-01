@@ -7,12 +7,14 @@ using namespace std;
 
 void pi_substring(string in_file)
 {
-  pi_io session = pi_io_session(in_file);
+  unsigned long long n = 0;
+  unsigned long long max_idx, start_idx;
+  bool found = false;
   string search_str = pi_substring_get_input();
-
-  int current_offset = 0, max_offset = search_str.length();
-  unsigned long long longest_offset, longest_idx, n;
-
+  start_idx = get_input_int("Please enter a starting index (default 0): ");
+  pi_io session = pi_io_session(in_file, start_idx);
+  int substr_pos = 0, substr_end = search_str.length(), highest_pos = 0;
+  
   //Read first n bytes.
   string buffer;
   do {
@@ -20,33 +22,38 @@ void pi_substring(string in_file)
 
     for ( int i=0; i<buffer.length(); i++ )
     {
-
-
-      if ( search_str[current_offset] == buffer[i] )
+  
+      if ( buffer[i] == search_str[substr_pos] )
       {
-        current_offset += 1;
-        if ( current_offset > longest_offset )
+        substr_pos++;
+        if ( substr_pos > highest_pos )
         {
-          longest_offset = current_offset;
-          longest_idx = n - current_offset;
-          cout << "Found new longest match, " << longest_offset << " in length at index " << longest_idx << endl;
+          highest_pos = substr_pos;
+          max_idx = n - (substr_pos) + start_idx;
+          
+          cout << endl << "New highest found at " << highest_pos << ", index: " << max_idx << endl;
+          if ( highest_pos >= substr_end )
+          {
+            found = true;
+            break;
+          }
         }
+
       }
       else
-      {
-        if ( current_offset > 0 )
-          current_offset = 0;
-      }
+        substr_pos = 0;
 
       n++;
     }
 
+    if ( found == true )
+      break;
 
-    cout << session.progress << "%" << endl;
+    cout << '\r' << session.progress << "%              ";
   } while( buffer != "" );
 
+  cout << endl << "Found substring match of length " << highest_pos << " at index " << max_idx << endl;
 
-  cout << "Longest match, " << longest_offset << " in length at index " << longest_idx << endl;
 }
 
 string pi_substring_get_input()

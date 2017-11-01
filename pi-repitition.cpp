@@ -7,7 +7,7 @@ using namespace std;
 
 void pi_repitition(string in_file)
 {
-  pi_io session = pi_io_session(in_file);
+  pi_io session = pi_io_session(in_file, 0);
   unsigned long long i = 0, n = 1, highest_recur = 0, highest_idx = 0, current_count = 0;
   char current_digit, highest_digit;
 
@@ -48,7 +48,7 @@ void pi_repitition(string in_file)
 
 void pi_repitition_nk(string in_file)
 {
-  int n;
+  unsigned long long n;
   string k;
 
   n = get_input_int("Please enter a number for n");
@@ -56,7 +56,7 @@ void pi_repitition_nk(string in_file)
   cout << "Please enter a number for k: ";
   cin >> k;
 
-  pi_io session = pi_io_session(in_file);
+  pi_io session = pi_io_session(in_file, 0);
   unsigned long long x = 0, found_idx;
   unsigned int current_count = 0;
   bool found = false;
@@ -103,20 +103,3 @@ void pi_repitition_nk(string in_file)
 
 }
 
-int get_input_int(string message)
-{
-  string result;
-  int selection;
-
-  cout << message << ": ";
-  cin >> result;
-  try {
-    selection = stoi(result);
-  } catch (invalid_argument e) {
-    cout << "Please enter a number" << endl;
-    return get_input_int(message);
-  }
-
-  return selection;
-
-}

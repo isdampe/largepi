@@ -16,12 +16,12 @@ unsigned long long get_file_size(string filename)
     return rc == 0 ? stat_buf.st_size : -1;
 }
 
-pi_io pi_io_session(string in_file)
+pi_io pi_io_session(string in_file, unsigned long long start_idx)
 {
   pi_io result;
   result.file_path = in_file;
   result.size = get_file_size(result.file_path);
-  result.read_bytes = 0;
+  result.read_bytes = start_idx;
   result.bytes_per_read = IO_BUFFER_SIZE;
 
   return result;
@@ -50,4 +50,22 @@ string pi_io_read(pi_io &session)
   session.progress = ( (double)session.read_bytes / (double)session.size ) * 100;
 
   return data;
+}
+
+unsigned long long get_input_int(string message)
+{
+  string result;
+  int selection;
+
+  cout << message << ": ";
+  cin >> result;
+  try {
+    selection = stoull(result);
+  } catch (invalid_argument e) {
+    cout << "Please enter a number" << endl;
+    return get_input_int(message);
+  }
+
+  return selection;
+
 }

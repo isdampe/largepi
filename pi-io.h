@@ -15,5 +15,6 @@ struct pi_io
 };
 
 unsigned long long get_file_size(std::string filename);
-pi_io pi_io_session(string in_file);
+pi_io pi_io_session(string in_file, unsigned long long start_idx);
 string pi_io_read(pi_io &session);
+unsigned long long get_input_int(string message);
