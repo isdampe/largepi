@@ -46,15 +46,66 @@ void pi_repitition(string in_file)
 
 }
 
+
 void pi_repitition_nk(string in_file)
 {
-  unsigned long long n;
+  unsigned long long n, found_idx;
   string k;
 
   n = get_input_int("Please enter a number for n");
 
   cout << "Please enter a number for k: ";
   cin >> k;
+
+  found_idx = get_n_rep_k(in_file, n, k);
+  
+  if ( found_idx > 0 )
+    cout << "The first " << n << " repitions of " << k << " is at index " << found_idx << endl;
+  else
+    cout << "No " << n << " repititions of " << k << " was found" << endl;
+
+}
+
+void pi_auto_find_repititions(string in_file)
+{
+  unsigned long long n, nend, found_idx;
+  int x;
+  string chars[10] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+  string k;
+  string results = "n, k, index\n";
+
+  n = get_input_int("Please enter a start number for n");
+  nend = get_input_int("Please enter an end number for n");
+
+  while ( n <= nend )
+  {
+    for ( x=0; x<10; x++ )
+    {
+      cout << "Finding first " << n << " repititions of " << chars[x] << endl;
+      found_idx = get_n_rep_k(in_file, n, chars[x]);
+      if ( found_idx > 0 )
+      {
+        cout << "The first " << n << " repitions of " << chars[x] << " is at index " << found_idx << endl;
+        results = results + to_string(n) + ", " + chars[x] + ", " + to_string(found_idx) + "\n";
+      }
+      else 
+      {
+        cout << "No " << n << " repititions of " << chars[x] << " was found" << endl;
+        results = results + to_string(n) + ", " + chars[x] + ", NULL\n";
+      }
+      
+    }
+    cout << results;
+    n++;
+  }
+
+  cout << endl << endl << "-- FINISHED --" << endl << endl;
+  cout << results;
+
+}
+
+unsigned long long get_n_rep_k(string in_file, unsigned long long n, string k)
+{
 
   pi_io session = pi_io_session(in_file, 0);
   unsigned long long x = 0, found_idx;
@@ -95,11 +146,9 @@ void pi_repitition_nk(string in_file)
 
   } while( buffer != "" );
 
-  cout << "Done." << endl;
   if ( found == true )
-    cout << "The first " << n << " repitions of " << k << " is at index " << found_idx << endl;
+    return found_idx;
   else
-    cout << "No " << n << " repititions of " << k << " was found" << endl;
+    return 0;
 
 }
-

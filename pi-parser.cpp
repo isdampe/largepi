@@ -25,7 +25,8 @@ int menu_select()
   cout << "1. Count digit distribution" << endl;
   cout << "2. Substring search" << endl;
   cout << "3. Find repititions" << endl;
-  cout << "4. Find first n repitition of k" << endl << endl;
+  cout << "4. Find first n repitition of k" << endl;
+  cout << "5. Automated first n repitition of k" << endl << endl;
   cout << "Selection: ";
   cin >> result;
 
@@ -35,7 +36,7 @@ int menu_select()
     cout << "Please enter a number" << endl;
     return menu_select();
   }
-  if ( selection < 1 || selection > 4 )
+  if ( selection < 1 || selection > 5 )
     return menu_select();
 
   return selection;
@@ -67,6 +68,9 @@ int main(int argc, char *argv[])
     break;
     case 4:
       pi_repitition_nk(app.data_path);
+    break;
+    case 5:
+      pi_auto_find_repititions(app.data_path);
     break;
   }
 
